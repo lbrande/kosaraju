@@ -42,9 +42,9 @@ fn assign(u: usize, root: usize, adjacent: &[Vec<usize>], assigned: &mut HashMap
 
 fn transpose(adjacent: &[Vec<usize>]) -> Vec<Vec<usize>> {
     let mut inverted: Vec<Vec<usize>> = vec![Vec::new(); adjacent.len()];
-    for u in 0..adjacent.len() {
-        for &v in &adjacent[u] {
-            inverted[v].push(u);
+    for (i, u) in adjacent.iter().enumerate() {
+        for &v in u {
+            inverted[v].push(i);
         }
     }
     inverted
