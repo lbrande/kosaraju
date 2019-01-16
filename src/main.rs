@@ -3,11 +3,11 @@ use std::collections::HashSet;
 use std::collections::VecDeque;
 
 fn main() {
-    let assigned = kosaraju(&vec![vec![1, 2], vec![0], vec![0], vec![0, 1, 2]]);
+    let assigned = kosaraju(&[vec![1, 2], vec![0], vec![0], vec![0, 1, 2]]);
     println!("{:?}", assigned);
 }
 
-fn kosaraju(adjacent: &Vec<Vec<usize>>) -> HashMap<usize, usize> {
+fn kosaraju(adjacent: &[Vec<usize>]) -> HashMap<usize, usize> {
     let mut visited: HashSet<usize> = HashSet::new();
     let mut l: VecDeque<usize> = VecDeque::new();
     for u in 0..adjacent.len() {
@@ -21,12 +21,7 @@ fn kosaraju(adjacent: &Vec<Vec<usize>>) -> HashMap<usize, usize> {
     assigned
 }
 
-fn visit(
-    u: usize,
-    adjacent: &Vec<Vec<usize>>,
-    visited: &mut HashSet<usize>,
-    l: &mut VecDeque<usize>,
-) {
+fn visit(u: usize, adjacent: &[Vec<usize>], visited: &mut HashSet<usize>, l: &mut VecDeque<usize>) {
     if !visited.contains(&u) {
         visited.insert(u);
         for &v in &adjacent[u] {
@@ -36,12 +31,7 @@ fn visit(
     }
 }
 
-fn assign(
-    u: usize,
-    root: usize,
-    adjacent: &Vec<Vec<usize>>,
-    assigned: &mut HashMap<usize, usize>,
-) {
+fn assign(u: usize, root: usize, adjacent: &[Vec<usize>], assigned: &mut HashMap<usize, usize>) {
     if !assigned.contains_key(&u) {
         assigned.insert(u, root);
         for &v in &adjacent[u] {
@@ -50,7 +40,7 @@ fn assign(
     }
 }
 
-fn transpose(adjacent: &Vec<Vec<usize>>) -> Vec<Vec<usize>> {
+fn transpose(adjacent: &[Vec<usize>]) -> Vec<Vec<usize>> {
     let mut inverted: Vec<Vec<usize>> = vec![Vec::new(); adjacent.len()];
     for u in 0..adjacent.len() {
         for &v in &adjacent[u] {
